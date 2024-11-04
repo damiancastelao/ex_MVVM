@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
  */
 object Datos {
     var numero = 0
+    var estado = Estados.INICIO
 }
 
 /**
@@ -19,4 +20,13 @@ enum class Colores(val color: Color, val txt: String) {
     CLASE_AZUL(color = Color.Blue, txt = "azul"),
     CLASE_AMARILLO(color = Color.Yellow, txt = "melo"),
     CLASE_START(color = Color.LightGray, txt = "Start")
+}
+
+/**
+ * Estados del juego
+ */
+enum class Estados(val start_activo: Boolean, val boton_activo: Boolean) {
+    INICIO(start_activo = true, boton_activo = false),
+    GENERANDO(start_activo = false, boton_activo = false),
+    ADIVINANDO(start_activo = false, boton_activo = true),
 }

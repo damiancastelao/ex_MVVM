@@ -8,6 +8,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -21,8 +25,12 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun IU(miViewModel: MyViewModel) {
-    // botones en horizontal
+    // para que sea mas facil la etiqueta del log
+    val TAG_LOG: String = "miDebug"
 
+
+
+    // botones en horizontal
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         // creo un boton rojo
         Boton(miViewModel, Colores.CLASE_ROJO)
@@ -70,13 +78,18 @@ fun Boton_Start(miViewModel: MyViewModel, enum_color: Colores) {
 
     // para que sea mas facil la etiqueta del log
     val TAG_LOG: String = "miDebug"
+
+    // estado del boton start
+    var start_activo by remember {mutableStateOf(Datos.estado.start_activo)}
+
     // separador entre botones
     Spacer(modifier = Modifier.size(40.dp))
     Button(
+        enabled = start_activo,
         // utilizamos el color del enum
         colors =  ButtonDefaults.buttonColors(enum_color.color),
         onClick = {
-            Log.d(TAG_LOG, "Dentro del Start")
+            Log.d(TAG_LOG, "Dentro del Start - Estado: $start_activo")
             miViewModel.crearRandom()
         },
         modifier = Modifier
