@@ -18,5 +18,5 @@ enum class Colores(val color: Color, val txt: String) {
     CLASE_VERDE(color = Color.Green, txt = "verde"),
     CLASE_AZUL(color = Color.Blue, txt = "azul"),
     CLASE_AMARILLO(color = Color.Yellow, txt = "melo"),
-    Clase_START(color = Color.Green, txt = "Start")
+    CLASE_START(color = Color.LightGray, txt = "Start")
 }

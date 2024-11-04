@@ -22,7 +22,7 @@ class MyViewModel(): ViewModel() {
      * crear entero random
      */
     fun crearRandom() {
-        _numbers.value = (1..4).random()
+        _numbers.value = (0..3).random()
         Log.d(TAG_LOG, "creamos random ${_numbers.value}")
         actualizarNumero(_numbers.value)
     }
@@ -38,7 +38,7 @@ class MyViewModel(): ViewModel() {
      * @return Boolean si coincide TRUE, si no FALSE
      */
     fun comprobar(ordinal: Int): Boolean {
-        Log.d(TAG_LOG, "comprobamos si es correcto")
+        Log.d(TAG_LOG, "comprobamos")
         return if (ordinal == Datos.numero) {
             Log.d(TAG_LOG, "es correcto")
             true
@@ -46,8 +46,5 @@ class MyViewModel(): ViewModel() {
             Log.d(TAG_LOG, "no es correcto")
             false
         }
-
     }
-
-
 }

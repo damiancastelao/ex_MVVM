@@ -18,7 +18,6 @@ class MainActivity : ComponentActivity() {
             MVVM_basicTheme {
                 // llamamos a la IU pasando el ViewModel
                 IU(miViewModel)
-
             }
         }
     }
