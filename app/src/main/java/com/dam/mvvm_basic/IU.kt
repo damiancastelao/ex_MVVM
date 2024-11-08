@@ -73,7 +73,7 @@ fun Boton(miViewModel: MyViewModel, enum_color: Colores) {
     var _activo by remember { mutableStateOf(miViewModel.estadoLiveData.value!!.boton_activo) }
 
     miViewModel.estadoLiveData.observe(LocalLifecycleOwner.current) {
-        // Log.d(TAG_LOG, "Oserver Estado: ${miViewModel.estadoLiveData.value!!.name}")
+        // Log.d(TAG_LOG, "Observer Estado: ${miViewModel.estadoLiveData.value!!.name}")
         _activo = miViewModel.estadoLiveData.value!!.boton_activo
     }
 
