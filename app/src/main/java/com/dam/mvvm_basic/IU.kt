@@ -34,7 +34,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun IU(miViewModel: MyViewModel) {
     // para que sea mas facil la etiqueta del log
-    // val TAG_LOG = "miDebug"
+    val TAG_LOG = "miDebug"
 
     // botones en horizontal
     Column(
@@ -58,9 +58,32 @@ fun IU(miViewModel: MyViewModel) {
                 Boton(miViewModel, Colores.CLASE_AMARILLO)
             }
         }
-        // creao boton Start
+        // cuenta atras
+        CuentaAtras(miViewModel)
+
+        // boton Start
         Boton_Start(miViewModel, Colores.CLASE_START)
     }
+}
+
+/**
+ * Texto de cuenta atras
+ */
+@Composable
+fun CuentaAtras(miViewModel: MyViewModel) {
+
+    // para que sea mas facil la etiqueta del log
+    val TAG_LOG = "miDebug"
+
+    // variable para el estado de la cuenta atras
+    var _cuenta by remember { mutableStateOf(0) }
+
+    // definimos que vamos hacer con el estado de la cuenta atras
+    miViewModel.cuentaAtrasLiveData.observe(LocalLifecycleOwner.current) {
+        Log.d(TAG_LOG, "Observer Cuenta: ${miViewModel.cuentaAtrasLiveData.value!!.name}")
+        _cuenta = miViewModel.cuentaAtrasLiveData.value!!.valor
+    }
+    Text(text = _cuenta.toString(), fontSize = 20.sp)
 }
 
 @Composable
@@ -108,7 +131,7 @@ fun Boton_Start(miViewModel: MyViewModel, enum_color: Colores) {
     // variable para el color del boton usado en el LaunchedEffect
     var _color by remember { mutableStateOf(enum_color.color) }
 
-
+    // definimos que vamos hacer con el estado del boton
     miViewModel.estadoLiveData.observe(LocalLifecycleOwner.current) {
         // Log.d(TAG_LOG, "Oserver Estado: ${miViewModel.estadoLiveData.value!!.name}")
         _activo = miViewModel.estadoLiveData.value!!.start_activo

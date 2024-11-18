@@ -18,6 +18,10 @@ class MyViewModel(): ViewModel() {
     // patron de diseño observer
     val estadoLiveData: MutableLiveData<Estados?> = MutableLiveData(Estados.INICIO)
 
+    // cuenta atras
+    // usamos LiveData para que la IU se actualice
+    val cuentaAtrasLiveData: MutableLiveData<EstadosAuxiliares?> = MutableLiveData(EstadosAuxiliares.AUX1)
+
     // este va a ser nuestra lista para la secuencia random
     // usamos mutable, ya que la queremos modificar
     var _numbers = mutableStateOf(0)
@@ -44,6 +48,8 @@ class MyViewModel(): ViewModel() {
         Datos.numero = numero
         // cambiamos estado, por lo tanto la IU se actualiza
         estadoLiveData.value = Estados.ADIVINANDO
+        // empieza la cuenta atras
+        estadosAuxiliares()
     }
 
     /**
@@ -52,9 +58,6 @@ class MyViewModel(): ViewModel() {
      * @return Boolean si coincide TRUE, si no FALSE
      */
     fun comprobar(ordinal: Int): Boolean {
-
-        // mientras comprobamos, lanzamos estados auxiliares en paralelo
-        estadosAuxiliares()
 
         Log.d(TAG_LOG, "comprobamos - Estado: ${estadoLiveData.value}")
         return if (ordinal == Datos.numero) {
@@ -75,18 +78,25 @@ class MyViewModel(): ViewModel() {
      */
     fun estadosAuxiliares() {
         viewModelScope.launch {
-            // guardamos el estado auxiliar
-            var estadoAux = EstadosAuxiliares.AUX1
-
-            // hacemos un cambio a tres estados auxiliares
-            Log.d(TAG_LOG, "estado (corutina): ${estadoAux}")
+            // iniciamos cuenta atras
+            cuentaAtrasLiveData.value = EstadosAuxiliares.AUX5
+            // empezamos la cuenta atras
+            Log.d(TAG_LOG, "estado (corutina): ${cuentaAtrasLiveData.value}")
             delay(1500)
-            estadoAux = EstadosAuxiliares.AUX2
-            Log.d(TAG_LOG, "estado (corutina): ${estadoAux}")
+            cuentaAtrasLiveData.value = EstadosAuxiliares.AUX4
+            Log.d(TAG_LOG, "estado (corutina): ${cuentaAtrasLiveData.value}")
             delay(1500)
-            estadoAux = EstadosAuxiliares.AUX3
-            Log.d(TAG_LOG, "estado (corutina): ${estadoAux}")
+            cuentaAtrasLiveData.value = EstadosAuxiliares.AUX3
+            Log.d(TAG_LOG, "estado (corutina): ${cuentaAtrasLiveData.value}")
             delay(1500)
+            cuentaAtrasLiveData.value = EstadosAuxiliares.AUX2
+            Log.d(TAG_LOG, "estado (corutina): ${cuentaAtrasLiveData.value}")
+            delay(1500)
+            cuentaAtrasLiveData.value = EstadosAuxiliares.AUX1
+            Log.d(TAG_LOG, "estado (corutina): ${cuentaAtrasLiveData.value}")
+            delay(1500)
+            // ponemos el estado en INICIO si llegamos al final de la cuenta atras
+            estadoLiveData.value = Estados.INICIO
         }
     }
 }
