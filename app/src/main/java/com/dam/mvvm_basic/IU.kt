@@ -83,7 +83,7 @@ fun CuentaAtras(miViewModel: MyViewModel) {
         Log.d(TAG_LOG, "Observer Cuenta: ${miViewModel.cuentaAtrasLiveData.value!!.name}")
         _cuenta = miViewModel.cuentaAtrasLiveData.value!!.valor
     }
-    Text(text = _cuenta.toString(), fontSize = 20.sp)
+    Text(text = if (_cuenta == 0) "·" else _cuenta.toString(), fontSize = 20.sp)
 }
 
 @Composable

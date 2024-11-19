@@ -43,6 +43,7 @@ enum class Estados(val start_activo: Boolean, val boton_activo: Boolean) {
  * @param valor: entero para la cuenta atrás
  */
 enum class EstadosAuxiliares(val valor: Int) {
+    AUX0(0),
     AUX1(1),
     AUX2(2),
     AUX3(3),

@@ -20,7 +20,7 @@ class MyViewModel(): ViewModel() {
 
     // cuenta atras
     // usamos LiveData para que la IU se actualice
-    val cuentaAtrasLiveData: MutableLiveData<EstadosAuxiliares?> = MutableLiveData(EstadosAuxiliares.AUX1)
+    val cuentaAtrasLiveData: MutableLiveData<EstadosAuxiliares?> = MutableLiveData(EstadosAuxiliares.AUX0)
 
     // este va a ser nuestra lista para la secuencia random
     // usamos mutable, ya que la queremos modificar
@@ -95,6 +95,7 @@ class MyViewModel(): ViewModel() {
             cuentaAtrasLiveData.value = EstadosAuxiliares.AUX1
             Log.d(TAG_LOG, "estado (corutina): ${cuentaAtrasLiveData.value}")
             delay(1500)
+            cuentaAtrasLiveData.value = EstadosAuxiliares.AUX0
             // ponemos el estado en INICIO si llegamos al final de la cuenta atras
             estadoLiveData.value = Estados.INICIO
         }
